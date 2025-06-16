@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CXL Regional Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100vh; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<!-- Load Leaflet and D3 -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<script>
+  // Initialize the map
+  var map = L.map('map').setView([23.7, 121], 8); // Center on Taiwan
+
+  // Add OpenStreetMap base layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Load High School CSV
+  d3.csv("HS_short.csv").then(function(data) {
+    console.log("High School Data Loaded:", data);
+    data.forEach(function(row) {
+      if (row.Latitude && row.Longitude) {
+        L.marker([+row.Latitude, +row.Longitude])
+          .bindPopup(`<b>${row["School Name"]}</b><br>${row.Region}`)
+          .addTo(map);
+      }
+    });
+  });
+
+  // Load Middle School CSV
+  d3.csv("MS_short.csv").then(function(data) {
+    console.log("Middle School Data Loaded:", data);
+    data.forEach(function(row) {
+      if (row.Latitude && row.Longitude) {
+        L.marker([+row.Latitude, +row.Longitude])
+          .bindPopup(`<b>${row["School Name"]}</b><br>${row.Region}`)
+          .addTo(map);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
