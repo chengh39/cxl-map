@@ -74,6 +74,31 @@
    <br/>
    ⚫ 特邀支援區：澎湖、金門、連江
   </div>
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+
+<script>
+  // Load High School CSV
+  d3.csv("HS_short.csv").then(function(data) {
+    console.log("High School Data Loaded:", data);
+    data.forEach(function(row) {
+      L.marker([+row.Latitude, +row.Longitude])
+        .bindPopup(`<b>${row["School Name"]}</b><br>${row.Region}`)
+        .addTo(map);
+    });
+  });
+
+  // Load Middle School CSV
+  d3.csv("MS_short.csv").then(function(data) {
+    console.log("Middle School Data Loaded:", data);
+    data.forEach(function(row) {
+      L.marker([+row.Latitude, +row.Longitude])
+        .bindPopup(`<b>${row["School Name"]}</b><br>${row.Region}`)
+        .addTo(map);
+    });
+  });
+</script>
+  
  </body>
  <script>
   var map_4726c9c28e2cf16191af194abd42c7f4 = L.map(
