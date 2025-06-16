@@ -68,7 +68,7 @@
   function loadCSV(url, layer, iconColor) {
     d3.csv(url).then(data => {
       data.forEach(d => {
-        if (d.lat && d.lng) {
+        if (d.Latitude && d.Longitude) {
           const marker = L.circleMarker([+d.Latitude, +d.Longitude], {
             radius: 6,
             fillColor: iconColor,
